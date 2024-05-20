@@ -23,6 +23,28 @@
 ;;
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "Courier" :size 20))
+(if (display-graphic-p)
+    (set-fontset-font t 'han "Lantinghei SC"))
+
+;; frame size
+;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(setq default-frame-alist '((width . 120)
+                            (height . 40)))
+
+;; frame location
+(defun center-frame ()
+  "Center the current frame on the screen."
+  (interactive)
+  (let* ((frame (selected-frame))
+         (width (frame-pixel-width frame))
+         (height (frame-pixel-height frame))
+         (pos-x (/ (- (x-display-pixel-width) width) 2))
+         (pos-y (/ (- (x-display-pixel-height) height) 2)))
+    (set-frame-position frame pos-x pos-y)))
+
+(add-hook 'window-setup-hook 'center-frame)
+
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -32,7 +54,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-nord-light)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -74,3 +96,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(after! which-key
+  ;; The delay for first open which-key window when press leader-key.
+  (setq which-key-idle-delay 0.2)
+  ;; The delay for switch which-key window when press folder key.
+  (setq which-key-idle-secondary-delay 0))
