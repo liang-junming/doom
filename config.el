@@ -105,3 +105,13 @@
 (after! doom-themes
   (setq doom-themes-enable-bold nil)
   (setq doom-themes-enable-italic nil))
+
+(use-package! google-translate
+  :config
+  (setq google-translate-default-source-language "en")
+  (setq google-translate-default-target-language "zh-CN")
+  (setq google-translate-output-destination 'nil)
+  (setq google-translate-pop-up-buffer-set-focus t)
+  (map!
+   :leader :desc "translate at point" "l p" #'google-translate-at-point))
+
