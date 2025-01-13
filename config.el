@@ -115,3 +115,35 @@
   (map!
    :leader :desc "translate at point" "l p" #'google-translate-at-point))
 
+(use-package! vertico
+  :config
+  (map! :when (modulep! :editor evil +everywhere)
+        :map vertico-map
+        "C-h"   #'vertico-next
+        "C-M-h" #'vertico-next-group
+        "C-t"   #'vertico-previous
+        "C-M-t" #'vertico-previous-group))
+
+(define-minor-mode dvorak-dhtn-mode
+  "dvorak-dhtn-mode allows you to use 'dhtn' insterd of 'hjkl' wen you use dvorak keyboard layout."
+  :lighter " ED"
+  :keymap (make-sparse-keymap)
+  :global t)
+
+(evil-define-key '(normal visual motion) dvorak-dhtn-mode-map
+  "d" 'evil-backward-char
+  "h" 'evil-next-line
+  "t" 'evil-previous-line
+  "n" 'evil-forward-char
+  "D" 'evil-window-top
+  "N" 'evil-window-bottom
+  "l" 'evil-ex-search-next
+  "L" 'evil-ex-search-previous
+
+  "j" 'join-line
+  "k" 'evil-delete
+  "K" 'evil-delete-line
+  "H" '+lookup/documentation
+  )
+
+(dvorak-dhtn-mode)
